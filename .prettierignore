@@ -1,0 +1,8 @@
+.nuxt/
+
+package.json
+package-lock.json
+
+README.md
+
+.yarnrc.yml
