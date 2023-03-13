@@ -1,5 +1,6 @@
 <template>
-	<div></div>
+	<div class="flex h-full w-full justify-center p-4">
+	</div>
 </template>
 
 <script setup lang="ts">
