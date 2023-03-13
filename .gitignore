@@ -7,3 +7,9 @@ node_modules
 
 # System files
 *.log
+
+# environment files
+.env
+
+# prisma
+prisma
