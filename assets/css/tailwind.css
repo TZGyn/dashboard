@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 html,
-body {
-	@apply bg-primary text-white;
+body,
+#__nuxt {
+	@apply bg-primary h-full w-full text-white;
 }
