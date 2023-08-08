@@ -1,0 +1,9 @@
+---
+version: 1.0
+services:
+  dashboard:
+    container_name: next_dashboard
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: [3000:3000]
