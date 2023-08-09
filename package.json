@@ -29,12 +29,14 @@
 		"@types/react-dom": "18.2.4",
 		"autoprefixer": "10.4.14",
 		"clsx": "^1.2.1",
+		"drizzle-orm": "^0.28.1",
 		"eslint": "8.41.0",
 		"eslint-config-next": "13.4.4",
 		"framer-motion": "^10.12.16",
 		"intl-messageformat": "^10.1.0",
 		"next": "13.4.9",
 		"next-themes": "^0.2.1",
+		"pg": "^8.11.2",
 		"postcss": "8.4.24",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
@@ -43,6 +45,8 @@
 		"typescript": "5.0.4"
 	},
 	"devDependencies": {
+		"@types/pg": "^8.10.2",
+		"drizzle-kit": "^0.19.12",
 		"prettier": "^3.0.1",
 		"prettier-plugin-tailwindcss": "^0.4.1"
 	}
