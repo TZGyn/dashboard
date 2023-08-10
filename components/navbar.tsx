@@ -1,3 +1,5 @@
+'use client'
+
 import {
 	Navbar as NextUINavbar,
 	NavbarContent,
@@ -21,6 +23,8 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { GithubIcon, SearchIcon } from '@/components/icons'
 
 import { Logo } from '@/components/icons'
+import NewBookmarkForm from '@/components/newBookmarkForm'
+import { usePathname } from 'next/navigation'
 
 export const Navbar = () => {
 	const searchInput = (
@@ -45,6 +49,8 @@ export const Navbar = () => {
 			type='search'
 		/>
 	)
+
+	const pathname = usePathname()
 
 	return (
 		<NextUINavbar
@@ -84,6 +90,11 @@ export const Navbar = () => {
 				className='hidden basis-1/5 sm:flex sm:basis-full'
 				justify='end'>
 				<NavbarItem className='hidden gap-2 sm:flex'>
+					{pathname.startsWith('/dashboard') && (
+						<div className='mr-4'>
+							<NewBookmarkForm />
+						</div>
+					)}
 					<Link
 						isExternal
 						href={siteConfig.links.github}

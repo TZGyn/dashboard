@@ -11,12 +11,14 @@
 	"dependencies": {
 		"@nextui-org/button": "2.0.0",
 		"@nextui-org/card": "^2.0.4",
+		"@nextui-org/checkbox": "^2.0.5",
 		"@nextui-org/code": "2.0.0",
 		"@nextui-org/divider": "^2.0.4",
 		"@nextui-org/image": "^2.0.4",
 		"@nextui-org/input": "2.0.0",
 		"@nextui-org/kbd": "2.0.0",
 		"@nextui-org/link": "2.0.0",
+		"@nextui-org/modal": "^2.0.6",
 		"@nextui-org/navbar": "2.0.0",
 		"@nextui-org/snippet": "2.0.0",
 		"@nextui-org/switch": "2.0.0",
@@ -45,6 +47,7 @@
 		"typescript": "5.0.4"
 	},
 	"devDependencies": {
+		"@iconify/react": "^4.1.1",
 		"@types/pg": "^8.10.2",
 		"drizzle-kit": "^0.19.12",
 		"prettier": "^3.0.1",
