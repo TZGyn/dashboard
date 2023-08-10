@@ -7,3 +7,14 @@ services:
       context: .
       dockerfile: Dockerfile
     ports: [3000:3000]
+    networks: [next_dashboard]
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    networks: [next_dashboard]
+networks:
+  next_dashboard:
+    driver: bridge
