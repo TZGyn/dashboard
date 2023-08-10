@@ -7,18 +7,11 @@ import { Image } from '@nextui-org/image'
 
 import { type Bookmark } from '@/types'
 
-export const BookmarkCard = ({
-	index,
-	data,
-}: {
-	index: number
-	data: Bookmark
-}) => {
+export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 	return (
 		<>
 			<Card
 				className='w-96'
-				key={index}
 				isPressable
 				onPress={() => open(data.url, '_blank')}>
 				<CardHeader className='flex gap-3'>

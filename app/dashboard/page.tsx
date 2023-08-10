@@ -1,24 +1,19 @@
 import { BookmarkCard } from '@/components/bookmarkCard'
 import { bookmarkSchema } from '@/types'
+import { db, bookmark } from '@/lib/schema'
 
-const getData = async () => {
-	const res = await fetch(process.env.NEXT_APP_URL + '/api/bookmark', {
-		method: 'GET',
-		cache: 'no-store',
-	})
-	const data = await res.json()
-
-	return bookmarkSchema.array().parse(data)
-}
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
 
 export default async function DashboardPage() {
-	const data = await getData()
+	const data = await db.select().from(bookmark)
 
+	const bookmarks = bookmarkSchema.array().parse(data)
 	return (
 		<div className='mt-4 flex w-full max-w-4xl flex-row flex-wrap justify-center gap-6'>
-			{data.map((data, index) => (
+			{bookmarks.map((data, index) => (
 				<BookmarkCard
-					index={index}
+					key={index}
 					data={data}
 				/>
 			))}

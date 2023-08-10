@@ -2,8 +2,6 @@ import { bookmarkSchema } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 import { db, bookmark } from '@/lib/schema'
 
-export const dynamic = 'force-dynamic'
-
 export const GET = async () => {
 	const bookmarks = await db.select().from(bookmark)
 
