@@ -7,6 +7,7 @@ COPY package*.json ./
 RUN npm i -g pnpm
 RUN pnpm i
 COPY . .
+COPY .env.example .env.local
 
 ENV HOST 0.0.0.0
 EXPOSE 3000
