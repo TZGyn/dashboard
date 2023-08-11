@@ -1,6 +1,7 @@
 import { bookmarkSchema } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 import { db, bookmark } from '@/lib/schema'
+import { eq } from 'drizzle-orm'
 
 export const GET = async () => {
 	const bookmarks = await db.select().from(bookmark)
@@ -20,4 +21,14 @@ export const POST = async (request: NextRequest) => {
 	}
 
 	return NextResponse.json(newBookmark.error)
+}
+
+export const DELETE = async (request: NextRequest) => {
+	const body = await request.json()
+
+	const bookmarkId = body.bookmarkId
+
+	await db.delete(bookmark).where(eq(bookmark.id, bookmarkId))
+
+	return NextResponse.json({ message: 'Bookmark Deleted' })
 }
