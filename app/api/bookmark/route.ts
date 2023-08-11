@@ -1,4 +1,4 @@
-import { bookmarkSchema } from '@/types'
+import { newBookmarkSchema } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 import { db, bookmark } from '@/lib/schema'
 import { eq } from 'drizzle-orm'
@@ -12,7 +12,7 @@ export const GET = async () => {
 export const POST = async (request: NextRequest) => {
 	const body = await request.json()
 
-	const newBookmark = bookmarkSchema.safeParse(body)
+	const newBookmark = newBookmarkSchema.safeParse(body)
 
 	if (newBookmark.success) {
 		await db.insert(bookmark).values(newBookmark.data)
