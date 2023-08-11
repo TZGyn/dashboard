@@ -5,6 +5,13 @@ import { Link } from '@nextui-org/link'
 import { Divider } from '@nextui-org/divider'
 import { Image } from '@nextui-org/image'
 import { Icon } from '@iconify/react'
+import { Button } from '@nextui-org/button'
+import {
+	Dropdown,
+	DropdownTrigger,
+	DropdownMenu,
+	DropdownItem,
+} from '@nextui-org/dropdown'
 import { useRouter } from 'next/navigation'
 
 import { type Bookmark } from '@/types'
@@ -21,10 +28,7 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 	}
 	return (
 		<>
-			<Card
-				className='w-96'
-				isPressable
-				onPress={() => {}}>
+			<Card className='w-96'>
 				<CardHeader className='flex gap-3'>
 					<Image
 						alt='nextui logo'
@@ -39,14 +43,29 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 							{data.link}
 						</p>
 					</div>
-					<div>
-						<Icon
-							icon='mdi:delete'
-							fontSize={24}
-							className='text-red-500'
-							onClick={(event) => deleteBookmark(event, data.id)}
-						/>
-					</div>
+					<Dropdown>
+						<DropdownTrigger>
+							<Button
+								variant='light'
+								isIconOnly>
+								<Icon
+									icon='mdi:dots-vertical'
+									fontSize={24}
+								/>
+							</Button>
+						</DropdownTrigger>
+						<DropdownMenu aria-label='Static Actions'>
+							<DropdownItem
+								key='delete'
+								className='text-danger'
+								color='danger'
+								onClick={(event) =>
+									deleteBookmark(event, data.id)
+								}>
+								Delete Bookmark
+							</DropdownItem>
+						</DropdownMenu>
+					</Dropdown>
 				</CardHeader>
 				<Divider />
 				<CardBody>
