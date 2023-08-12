@@ -22,7 +22,7 @@ import clsx from 'clsx'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { GithubIcon, SearchIcon } from '@/components/icons'
 
-import { Logo } from '@/components/icons'
+import { Icon } from '@iconify/react'
 import NewBookmarkForm from '@/components/newBookmarkForm'
 import { usePathname } from 'next/navigation'
 
@@ -65,7 +65,10 @@ export const Navbar = () => {
 					<NextLink
 						className='flex items-center justify-start gap-1'
 						href='/'>
-						<Logo />
+						<Icon
+							icon={'mdi:bookmark-box'}
+							fontSize={32}
+						/>
 						<p className='font-bold text-inherit'>Dashboard</p>
 					</NextLink>
 				</NavbarBrand>
