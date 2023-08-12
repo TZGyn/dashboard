@@ -110,7 +110,7 @@ export default function EditBookmarkForm() {
 								<Button
 									color='primary'
 									onPress={onSubmit}>
-									Add
+									Update
 								</Button>
 							</ModalFooter>
 						</>
