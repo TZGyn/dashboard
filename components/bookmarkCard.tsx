@@ -28,7 +28,7 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 	}
 	return (
 		<>
-			<Card className='w-96'>
+			<Card className='w-96 select-none'>
 				<CardHeader className='flex gap-3'>
 					<Image
 						alt='nextui logo'
