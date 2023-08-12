@@ -40,7 +40,9 @@ export default function NewBookmarkForm() {
 
 	return (
 		<>
-			<Button onPress={onOpen}>
+			<Button
+				variant='ghost'
+				onPress={onOpen}>
 				<Icon
 					icon='mdi:plus'
 					fontSize={24}
