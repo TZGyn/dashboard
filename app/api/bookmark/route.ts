@@ -1,4 +1,4 @@
-import { newBookmarkSchema } from '@/types'
+import { bookmarkSchema, newBookmarkSchema } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 import { db, bookmark } from '@/lib/schema'
 import { eq } from 'drizzle-orm'
@@ -21,6 +21,23 @@ export const POST = async (request: NextRequest) => {
 	}
 
 	return NextResponse.json(newBookmark.error)
+}
+
+export const PATCH = async (request: NextRequest) => {
+	const body = await request.json()
+
+	const updateBookmark = bookmarkSchema.safeParse(body)
+
+	if (updateBookmark.success) {
+		await db
+			.update(bookmark)
+			.set({ ...updateBookmark.data })
+			.where(eq(bookmark.id, updateBookmark.data.id))
+
+		return NextResponse.json({ message: 'Bookmark Updated' })
+	}
+
+	return NextResponse.json({ message: 'Invalid Bookmark' })
 }
 
 export const DELETE = async (request: NextRequest) => {

@@ -1,6 +1,7 @@
 import { BookmarkCard } from '@/components/bookmarkCard'
 import { bookmarkSchema } from '@/types'
 import { db, bookmark } from '@/lib/schema'
+import EditBookmarkForm from '@/components/editBookmarkForm'
 
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
@@ -17,6 +18,7 @@ export default async function DashboardPage() {
 					data={data}
 				/>
 			))}
+			<EditBookmarkForm />
 		</div>
 	)
 }

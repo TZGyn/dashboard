@@ -14,9 +14,15 @@ import {
 } from '@nextui-org/dropdown'
 import { useRouter } from 'next/navigation'
 
+import EditBookmarkForm from './editBookmarkForm'
 import { type Bookmark } from '@/types'
+import { useContext } from 'react'
+import { BookmarkContext, EditBookmarkContext } from '@/app/providers'
 
 export const BookmarkCard = ({ data }: { data: Bookmark }) => {
+	const { setIsEditBookmark } = useContext(EditBookmarkContext)
+	const { bookmark, setBookmark } = useContext(BookmarkContext)
+
 	const router = useRouter()
 	const deleteBookmark = async (event: React.MouseEvent, id: Number) => {
 		event.stopPropagation()
@@ -25,6 +31,10 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 			body: JSON.stringify({ bookmarkId: id }),
 		})
 		router.refresh()
+	}
+	const editBookmark = (selectedBookmark: Bookmark) => {
+		setBookmark({ ...bookmark, ...selectedBookmark })
+		setIsEditBookmark(true)
 	}
 	return (
 		<>
@@ -55,6 +65,11 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 							</Button>
 						</DropdownTrigger>
 						<DropdownMenu aria-label='Static Actions'>
+							<DropdownItem
+								key='edit'
+								onClick={() => editBookmark(data)}>
+								Edit Bookmark
+							</DropdownItem>
 							<DropdownItem
 								key='delete'
 								className='text-danger'
