@@ -16,7 +16,7 @@ import { Bookmark } from '@/types'
 import { BookmarkContext, EditBookmarkContext } from '@/app/providers'
 
 export default function EditBookmarkForm() {
-	const { isEditBookmark, setIsEditBookmark } =
+	const { isEditBookmark, onIsEditBookmarkChange } =
 		useContext(EditBookmarkContext)
 	const { bookmark, setBookmark } = useContext(BookmarkContext)
 
@@ -28,7 +28,7 @@ export default function EditBookmarkForm() {
 			method: 'PATCH',
 			body: JSON.stringify(body),
 		})
-		setIsEditBookmark(false)
+		onIsEditBookmarkChange()
 		router.refresh()
 	}
 
@@ -36,10 +36,14 @@ export default function EditBookmarkForm() {
 		<>
 			<Modal
 				isOpen={isEditBookmark}
-				onOpenChange={() => setIsEditBookmark(false)}
+				onOpenChange={onIsEditBookmarkChange}
 				placement='top-center'
 				hideCloseButton>
-				<ModalContent>
+				<ModalContent
+					onKeyUp={(e) => {
+						console.log(e.key)
+						if (e.key === 'Enter') onSubmit()
+					}}>
 					{(onClose) => (
 						<>
 							<ModalHeader className='flex gap-2'>

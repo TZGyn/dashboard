@@ -5,6 +5,7 @@ import { NextUIProvider } from '@nextui-org/system'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { ThemeProviderProps } from 'next-themes/dist/types'
 import { Bookmark } from '@/types'
+import { useDisclosure } from '@nextui-org/modal'
 
 export interface ProvidersProps {
 	children: React.ReactNode
@@ -13,13 +14,15 @@ export interface ProvidersProps {
 
 export type EditBookmarkContextContent = {
 	isEditBookmark: boolean
-	setIsEditBookmark: (c: boolean) => void
+	onIsEditBookmark: () => void
+	onIsEditBookmarkChange: () => void
 }
 
 export const EditBookmarkContext =
 	React.createContext<EditBookmarkContextContent>({
 		isEditBookmark: false,
-		setIsEditBookmark: () => {},
+		onIsEditBookmark: () => {},
+		onIsEditBookmarkChange: () => {},
 	})
 
 export type BookmarkContextContent = {
@@ -39,7 +42,12 @@ export const BookmarkContext = React.createContext<BookmarkContextContent>({
 })
 
 export function Providers({ children, themeProps }: ProvidersProps) {
-	const [isEditBookmark, setIsEditBookmark] = React.useState<boolean>(false)
+	// const [isEditBookmark, setIsEditBookmark] = React.useState<boolean>(false)
+	const {
+		isOpen: isEditBookmark,
+		onOpen: onIsEditBookmark,
+		onOpenChange: onIsEditBookmarkChange,
+	} = useDisclosure()
 	const [bookmark, setBookmark] = React.useState<Bookmark>({
 		id: 0,
 		name: '',
@@ -56,7 +64,8 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 			<EditBookmarkContext.Provider
 				value={{
 					isEditBookmark,
-					setIsEditBookmark,
+					onIsEditBookmark,
+					onIsEditBookmarkChange,
 				}}>
 				<NextUIProvider>
 					<NextThemesProvider {...themeProps}>

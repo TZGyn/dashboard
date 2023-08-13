@@ -55,8 +55,12 @@ export default function NewBookmarkForm() {
 			<Modal
 				isOpen={isOpen}
 				onOpenChange={onOpenChange}
-				placement='top-center'>
-				<ModalContent>
+				placement='top-center'
+				hideCloseButton>
+				<ModalContent
+					onKeyUp={(e) => {
+						if (e.key === 'Enter') onSubmit()
+					}}>
 					{(onClose) => (
 						<>
 							<ModalHeader className='flex gap-2'>

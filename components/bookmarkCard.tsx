@@ -14,13 +14,12 @@ import {
 } from '@nextui-org/dropdown'
 import { useRouter } from 'next/navigation'
 
-import EditBookmarkForm from './editBookmarkForm'
 import { type Bookmark } from '@/types'
 import { useContext } from 'react'
 import { BookmarkContext, EditBookmarkContext } from '@/app/providers'
 
 export const BookmarkCard = ({ data }: { data: Bookmark }) => {
-	const { setIsEditBookmark } = useContext(EditBookmarkContext)
+	const { onIsEditBookmark } = useContext(EditBookmarkContext)
 	const { bookmark, setBookmark } = useContext(BookmarkContext)
 
 	const router = useRouter()
@@ -34,7 +33,7 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 	}
 	const editBookmark = (selectedBookmark: Bookmark) => {
 		setBookmark({ ...bookmark, ...selectedBookmark })
-		setIsEditBookmark(true)
+		onIsEditBookmark()
 	}
 	return (
 		<>
@@ -67,7 +66,7 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 						<DropdownMenu aria-label='Static Actions'>
 							<DropdownItem
 								key='edit'
-								onClick={() => editBookmark(data)}>
+								onPress={() => editBookmark(data)}>
 								Edit Bookmark
 							</DropdownItem>
 							<DropdownItem
