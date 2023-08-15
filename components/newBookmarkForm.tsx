@@ -24,6 +24,7 @@ export default function NewBookmarkForm() {
 			link,
 			description,
 			url,
+			category_id: 2,
 		}
 		await fetch('/api/bookmark', {
 			method: 'POST',
