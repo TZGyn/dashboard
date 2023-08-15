@@ -1,6 +1,7 @@
 import { BookmarkCard } from '@/components/bookmarkCard'
 import { bookmarkSchema } from '@/types'
-import { db, bookmark } from '@/lib/schema'
+import { bookmark } from '@/lib/schema'
+import { db } from '@/lib/db'
 import EditBookmarkForm from '@/components/editBookmarkForm'
 
 export const dynamic = 'force-dynamic'

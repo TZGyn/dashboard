@@ -1,5 +1,3 @@
-import { drizzle } from 'drizzle-orm/postgres-js'
-import postgres from 'postgres'
 import { relations } from 'drizzle-orm'
 import {
 	pgTable,
@@ -9,13 +7,6 @@ import {
 	timestamp,
 	integer,
 } from 'drizzle-orm/pg-core'
-
-const client = postgres(
-	process.env.DATABASE_URL ??
-		'postgres://postgres:password@127.0.0.1:5432/next-dashboard'
-)
-
-export const db = drizzle(client)
 
 // export const user = pgTable('users', {
 // 	id: serial('id').primaryKey(),

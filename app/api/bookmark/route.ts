@@ -1,6 +1,7 @@
 import { bookmarkSchema, newBookmarkSchema } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
-import { db, bookmark } from '@/lib/schema'
+import { bookmark } from '@/lib/schema'
+import { db } from '@/lib/db'
 import { eq } from 'drizzle-orm'
 
 export const GET = async () => {
@@ -37,7 +38,7 @@ export const PATCH = async (request: NextRequest) => {
 		return NextResponse.json({ message: 'Bookmark Updated' })
 	}
 
-	return NextResponse.json({ message: 'Invalid Bookmark' })
+	return NextResponse.json(updateBookmark.error)
 }
 
 export const DELETE = async (request: NextRequest) => {
