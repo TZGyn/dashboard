@@ -37,7 +37,7 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 	}
 	return (
 		<>
-			<Card className='w-96 select-none'>
+			<Card className='w-96 grow select-none'>
 				<CardHeader className='flex gap-3'>
 					<Image
 						alt='nextui logo'
@@ -46,12 +46,16 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 						src='https://avatars.githubusercontent.com/u/86160567?s=200&v=4'
 						width={40}
 					/>
-					<div className='flex grow flex-col items-start'>
+					<Link
+						isExternal
+						href={data.url}
+						color='foreground'
+						className='flex grow flex-col items-start'>
 						<p className='text-md'>{data.name}</p>
 						<p className='text-small text-default-500'>
 							{data.link}
 						</p>
-					</div>
+					</Link>
 					<Dropdown>
 						<DropdownTrigger>
 							<Button
@@ -81,19 +85,6 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 						</DropdownMenu>
 					</Dropdown>
 				</CardHeader>
-				<Divider />
-				<CardBody>
-					<p>{data.description}</p>
-				</CardBody>
-				<Divider />
-				<CardFooter>
-					<Link
-						isExternal
-						showAnchorIcon
-						href={data.url}>
-						{data.url}
-					</Link>
-				</CardFooter>
 			</Card>
 		</>
 	)
