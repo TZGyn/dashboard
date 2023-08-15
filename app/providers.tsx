@@ -37,6 +37,7 @@ export const BookmarkContext = React.createContext<BookmarkContextContent>({
 		link: '',
 		description: '',
 		url: '',
+		category_id: 2,
 	},
 	setBookmark: () => {},
 })
@@ -54,6 +55,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 		link: '',
 		description: '',
 		url: '',
+		category_id: 2,
 	})
 	return (
 		<BookmarkContext.Provider
