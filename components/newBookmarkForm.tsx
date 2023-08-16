@@ -8,9 +8,16 @@ import {
 	ModalFooter,
 	useDisclosure,
 } from '@nextui-org/modal'
+import {
+	Dropdown,
+	DropdownTrigger,
+	DropdownMenu,
+	DropdownItem,
+} from '@nextui-org/dropdown'
 import { Button } from '@nextui-org/button'
 import { Input } from '@nextui-org/input'
 import { Icon } from '@iconify/react'
+import { ChevronDownIcon } from './ChevronDownIcon'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -24,7 +31,7 @@ export default function NewBookmarkForm() {
 			link,
 			description,
 			url,
-			category_id: 2,
+			category_id: selectedKey === 'Other' ? 2 : 1,
 		}
 		await fetch('/api/bookmark', {
 			method: 'POST',
@@ -38,6 +45,8 @@ export default function NewBookmarkForm() {
 	const [link, setLink] = useState('')
 	const [description, setDescription] = useState('')
 	const [url, setUrl] = useState('')
+
+	const [selectedKey, setSelectedKey] = useState('Other')
 
 	return (
 		<>
@@ -100,6 +109,40 @@ export default function NewBookmarkForm() {
 										setDescription(event.target.value)
 									}}
 								/>
+								<Dropdown>
+									<DropdownTrigger className='hidden justify-start sm:flex'>
+										<Button
+											endContent={
+												<ChevronDownIcon className='text-small' />
+											}
+											variant='flat'>
+											<div className='w-full text-start'>
+												{selectedKey}
+											</div>
+										</Button>
+									</DropdownTrigger>
+									<DropdownMenu
+										disallowEmptySelection
+										selectionMode='single'
+										selectedKeys={selectedKey}>
+										<DropdownItem
+											key='Coding'
+											onClick={() => {
+												setSelectedKey('Coding')
+											}}
+											className='capitalize'>
+											Coding
+										</DropdownItem>
+										<DropdownItem
+											key='Other'
+											onClick={() => {
+												setSelectedKey('Other')
+											}}
+											className='capitalize'>
+											Other
+										</DropdownItem>
+									</DropdownMenu>
+								</Dropdown>
 								<Input
 									label='Url'
 									placeholder='Enter Url'
