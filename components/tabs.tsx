@@ -18,7 +18,7 @@ export default function BookmarkTabs({
 					<Tab
 						key={index}
 						title={bookmarkCategory.name}>
-						<div className='mt-4 flex flex-wrap justify-center gap-6'>
+						<div className='mt-16 flex flex-wrap justify-center gap-6'>
 							{bookmarkCategory.bookmark.map((data, index) => (
 								<BookmarkCard
 									key={index}
