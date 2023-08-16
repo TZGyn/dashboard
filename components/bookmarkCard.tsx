@@ -1,8 +1,7 @@
 'use client'
 
-import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card'
+import { Card, CardHeader } from '@nextui-org/card'
 import { Link } from '@nextui-org/link'
-import { Divider } from '@nextui-org/divider'
 import { Image } from '@nextui-org/image'
 import { Icon } from '@iconify/react'
 import { Button } from '@nextui-org/button'
@@ -53,7 +52,7 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 						className='flex grow flex-col items-start'>
 						<p className='text-md'>{data.name}</p>
 						<p className='text-small text-default-500'>
-							{data.link}
+							{data.url}
 						</p>
 					</Link>
 					<Dropdown>

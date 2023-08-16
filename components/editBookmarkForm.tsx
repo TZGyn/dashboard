@@ -66,46 +66,14 @@ export default function EditBookmarkForm() {
 								/>
 							</ModalHeader>
 							<ModalBody className='gap-4'>
-								<Input
-									autoFocus
-									label='Name'
-									placeholder='Enter Name'
-									variant='bordered'
-									value={bookmark.name}
-									onChange={(event) => {
-										setBookmark({
-											...bookmark,
-											name: event.target.value,
-										})
-									}}
-								/>
-								<Input
-									label='Link'
-									placeholder='Enter Link'
-									variant='bordered'
-									value={bookmark.link}
-									onChange={(event) => {
-										setBookmark({
-											...bookmark,
-											link: event.target.value,
-										})
-									}}
-								/>
-								<Input
-									label='Description'
-									placeholder='Enter Desription'
-									variant='bordered'
-									value={bookmark.description}
-									onChange={(event) => {
-										setBookmark({
-											...bookmark,
-											description: event.target.value,
-										})
-									}}
-								/>
 								<Dropdown>
 									<DropdownTrigger className='hidden justify-start sm:flex'>
 										<Button
+											startContent={
+												<span className='text-default-400'>
+													Category:
+												</span>
+											}
 											endContent={
 												<ChevronDownIcon className='text-small' />
 											}
@@ -118,7 +86,13 @@ export default function EditBookmarkForm() {
 									<DropdownMenu
 										disallowEmptySelection
 										selectionMode='single'
-										selectedKeys={selectedKey}>
+										selectedKeys={selectedKey}
+										disabledKeys={['disabled']}>
+										<DropdownItem
+											key='disabled'
+											className='capitalize'>
+											Select Category
+										</DropdownItem>
 										<DropdownItem
 											key='Coding'
 											onClick={() => {
@@ -137,6 +111,19 @@ export default function EditBookmarkForm() {
 										</DropdownItem>
 									</DropdownMenu>
 								</Dropdown>
+								<Input
+									autoFocus
+									label='Name'
+									placeholder='Enter Name'
+									variant='bordered'
+									value={bookmark.name}
+									onChange={(event) => {
+										setBookmark({
+											...bookmark,
+											name: event.target.value,
+										})
+									}}
+								/>
 								<Input
 									label='Url'
 									placeholder='Enter Url'

@@ -65,7 +65,7 @@ export default function NewBookmarkForm() {
 			<Modal
 				isOpen={isOpen}
 				onOpenChange={onOpenChange}
-				placement='top-center'
+				placement='center'
 				hideCloseButton>
 				<ModalContent
 					onKeyUp={(e) => {
@@ -81,37 +81,14 @@ export default function NewBookmarkForm() {
 								/>
 							</ModalHeader>
 							<ModalBody className='gap-4'>
-								<Input
-									autoFocus
-									label='Name'
-									placeholder='Enter Name'
-									variant='bordered'
-									value={name}
-									onChange={(event) => {
-										setName(event.target.value)
-									}}
-								/>
-								<Input
-									label='Link'
-									placeholder='Enter Link'
-									variant='bordered'
-									value={link}
-									onChange={(event) => {
-										setLink(event.target.value)
-									}}
-								/>
-								<Input
-									label='Description'
-									placeholder='Enter Desription'
-									variant='bordered'
-									value={description}
-									onChange={(event) => {
-										setDescription(event.target.value)
-									}}
-								/>
 								<Dropdown>
-									<DropdownTrigger className='hidden justify-start sm:flex'>
+									<DropdownTrigger className='flex justify-start'>
 										<Button
+											startContent={
+												<span className='text-default-400'>
+													Category:
+												</span>
+											}
 											endContent={
 												<ChevronDownIcon className='text-small' />
 											}
@@ -124,7 +101,13 @@ export default function NewBookmarkForm() {
 									<DropdownMenu
 										disallowEmptySelection
 										selectionMode='single'
-										selectedKeys={selectedKey}>
+										selectedKeys={selectedKey}
+										disabledKeys={['disabled']}>
+										<DropdownItem
+											key='disabled'
+											className='capitalize'>
+											Select Category
+										</DropdownItem>
 										<DropdownItem
 											key='Coding'
 											onClick={() => {
@@ -143,6 +126,16 @@ export default function NewBookmarkForm() {
 										</DropdownItem>
 									</DropdownMenu>
 								</Dropdown>
+								<Input
+									autoFocus
+									label='Name'
+									placeholder='Enter Name'
+									variant='bordered'
+									value={name}
+									onChange={(event) => {
+										setName(event.target.value)
+									}}
+								/>
 								<Input
 									label='Url'
 									placeholder='Enter Url'

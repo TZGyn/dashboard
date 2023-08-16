@@ -7,8 +7,8 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 
 const bookmark = {
 	name: z.string().nonempty(),
-	link: z.string().nonempty(),
-	description: z.string().nonempty(),
+	link: z.string(),
+	description: z.string(),
 	url: z.string().url().nonempty(),
 	category_id: z.number(),
 }
