@@ -7,13 +7,19 @@ import {
 	ModalBody,
 	ModalFooter,
 } from '@nextui-org/modal'
+import {
+	Dropdown,
+	DropdownItem,
+	DropdownMenu,
+	DropdownTrigger,
+} from '@nextui-org/dropdown'
 import { Button } from '@nextui-org/button'
 import { Input } from '@nextui-org/input'
 import { Icon } from '@iconify/react'
 import { useRouter } from 'next/navigation'
 import { useContext, useState } from 'react'
-import { Bookmark } from '@/types'
 import { BookmarkContext, EditBookmarkContext } from '@/app/providers'
+import { ChevronDownIcon } from './ChevronDownIcon'
 
 export default function EditBookmarkForm() {
 	const { isEditBookmark, onIsEditBookmarkChange } =
@@ -22,7 +28,10 @@ export default function EditBookmarkForm() {
 
 	const router = useRouter()
 	const onSubmit = async () => {
-		const body = bookmark
+		const body = {
+			...bookmark,
+			category_id: selectedKey === 'Other' ? 2 : 1,
+		}
 
 		await fetch('/api/bookmark', {
 			method: 'PATCH',
@@ -31,6 +40,10 @@ export default function EditBookmarkForm() {
 		onIsEditBookmarkChange()
 		router.refresh()
 	}
+
+	const [selectedKey, setSelectedKey] = useState(
+		bookmark.category_id == 2 ? 'Other' : 'Coding'
+	)
 
 	return (
 		<>
@@ -41,7 +54,6 @@ export default function EditBookmarkForm() {
 				hideCloseButton>
 				<ModalContent
 					onKeyUp={(e) => {
-						console.log(e.key)
 						if (e.key === 'Enter') onSubmit()
 					}}>
 					{(onClose) => (
@@ -91,6 +103,40 @@ export default function EditBookmarkForm() {
 										})
 									}}
 								/>
+								<Dropdown>
+									<DropdownTrigger className='hidden justify-start sm:flex'>
+										<Button
+											endContent={
+												<ChevronDownIcon className='text-small' />
+											}
+											variant='flat'>
+											<div className='w-full text-start'>
+												{selectedKey}
+											</div>
+										</Button>
+									</DropdownTrigger>
+									<DropdownMenu
+										disallowEmptySelection
+										selectionMode='single'
+										selectedKeys={selectedKey}>
+										<DropdownItem
+											key='Coding'
+											onClick={() => {
+												setSelectedKey('Coding')
+											}}
+											className='capitalize'>
+											Coding
+										</DropdownItem>
+										<DropdownItem
+											key='Other'
+											onClick={() => {
+												setSelectedKey('Other')
+											}}
+											className='capitalize'>
+											Other
+										</DropdownItem>
+									</DropdownMenu>
+								</Dropdown>
 								<Input
 									label='Url'
 									placeholder='Enter Url'
