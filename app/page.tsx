@@ -1,54 +1,77 @@
-import NextLink from "next/link";
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code"
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import NextLink from 'next/link'
+import { Link } from '@nextui-org/link'
+import { button as buttonStyles } from '@nextui-org/theme'
+import { siteConfig } from '@/config/site'
+import { title, subtitle } from '@/components/primitives'
+import { GithubIcon } from '@/components/icons'
+import { Card, CardHeader } from '@nextui-org/card'
+import { Image } from '@nextui-org/image'
 
 export default function Home() {
+	const demoCard = {
+		name: 'Dashboard',
+		url: 'https://next-dashboard.tzgyn.com',
+	}
+
 	return (
-		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-			<div className="inline-block max-w-lg text-center justify-center">
-				<h1 className={title()}>Make&nbsp;</h1>
-				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
+		<section className='flex flex-col items-center justify-center gap-4 py-8 md:py-10'>
+			<div className='inline-block max-w-lg justify-center text-center'>
+				<h1 className={title({ color: 'blue' })}>Beautiful&nbsp;</h1>
+				<h1 className={title()}>Dashboard&nbsp;</h1>
 				<br />
-				<h1 className={title()}>
-					websites regardless of your design experience.
-				</h1>
-				<h2 className={subtitle({ class: "mt-4" })}>
-					Beautiful, fast and modern React UI library.
+				<h1 className={title()}>To Manage Your Bookmarks</h1>
+				<h2 className={subtitle({ class: 'mt-4' })}>
+					Beautiful, fast and modern bookmark site.
 				</h2>
 			</div>
 
-			<div className="flex gap-3">
+			<div className='my-4'>
+				<Card className='w-96 grow select-none'>
+					<CardHeader className='flex gap-3'>
+						<Image
+							alt='nextui logo'
+							height={40}
+							radius='sm'
+							src='https://avatars.githubusercontent.com/u/86160567?s=200&v=4'
+							width={40}
+						/>
+						<Link
+							isExternal
+							href={demoCard.url}
+							color='foreground'
+							className='flex grow flex-col items-start'>
+							<p className='text-md'>{demoCard.name}</p>
+							<p className='text-small text-default-500'>
+								{demoCard.url}
+							</p>
+						</Link>
+					</CardHeader>
+				</Card>
+			</div>
+
+			<div className='flex gap-3'>
 				<Link
-					isExternal
 					as={NextLink}
-					href={siteConfig.links.docs}
-					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
-				>
-					Documentation
+					href='/dashboard'
+					className={buttonStyles({
+						color: 'primary',
+						radius: 'full',
+						variant: 'shadow',
+					})}>
+					Dashboard
 				</Link>
 				<Link
 					isExternal
 					as={NextLink}
-					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
-				>
+					className={buttonStyles({
+						variant: 'bordered',
+						radius: 'full',
+					})}
+					href={siteConfig.links.github}>
 					<GithubIcon size={20} />
 					GitHub
 				</Link>
 			</div>
-
-			<div className="mt-8">
-				<Snippet hideSymbol hideCopyButton variant="flat">
-					<span>
-						Get started by editing <Code color="primary">app/page.tsx</Code>
-					</span>
-				</Snippet>
-			</div>
 		</section>
-	);
+	)
 }

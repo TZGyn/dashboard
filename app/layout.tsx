@@ -50,12 +50,12 @@ export default function RootLayout({
 							<Link
 								isExternal
 								className='flex items-center gap-1 text-current'
-								href='https://nextui-docs-v2.vercel.app?utm_source=next-app-template'
+								href={siteConfig.links.github}
 								title='nextui.org homepage'>
 								<span className='text-default-600'>
-									Powered by
+									Made by
 								</span>
-								<p className='text-primary'>Linode</p>
+								<p className='text-primary'>TZGyn</p>
 							</Link>
 						</footer>
 					</div>
