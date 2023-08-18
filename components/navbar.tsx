@@ -72,7 +72,7 @@ export const Navbar = () => {
 						<p className='font-bold text-inherit'>Dashboard</p>
 					</NextLink>
 				</NavbarBrand>
-				<ul className='ml-2 hidden justify-start gap-4 lg:flex'>
+				<ul className='ml-2 hidden justify-start gap-4 sm:flex'>
 					{siteConfig.navItems.map((item) => (
 						<NavbarItem key={item.href}>
 							<NextLink
@@ -118,11 +118,10 @@ export const Navbar = () => {
 					<GithubIcon className='text-default-500' />
 				</Link>
 				<ThemeSwitch />
-				<NavbarMenuToggle />
+				<NavbarMenuToggle className='' />
 			</NavbarContent>
 
 			<NavbarMenu>
-				{searchInput}
 				<div className='mx-4 mt-2 flex flex-col gap-2'>
 					{siteConfig.navMenuItems.map((item, index) => (
 						<NavbarMenuItem key={`${item}-${index}`}>
