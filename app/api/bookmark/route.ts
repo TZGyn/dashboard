@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { bookmark } from '@/lib/schema'
 import { db } from '@/lib/db'
 import { eq } from 'drizzle-orm'
+import { cookies } from 'next/headers'
+import { getUser } from '@/lib/auth'
 
 export const GET = async () => {
 	const bookmarks = await db.select().from(bookmark)
@@ -12,11 +14,17 @@ export const GET = async () => {
 
 export const POST = async (request: NextRequest) => {
 	const body = await request.json()
+	const token = cookies().get('token')
+
+	const session_user = await getUser(token)
 
 	const newBookmark = newBookmarkSchema.safeParse(body)
 
 	if (newBookmark.success) {
-		await db.insert(bookmark).values(newBookmark.data)
+		await db.insert(bookmark).values({
+			...newBookmark.data,
+			userId: session_user ? session_user.id : null,
+		})
 
 		return NextResponse.json({ status: 200 })
 	}
