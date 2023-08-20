@@ -66,6 +66,7 @@ export const Navbar = () => {
 			<NavbarContent
 				className='basis-1/5 sm:basis-full'
 				justify='start'>
+				<NavbarMenuToggle className='' />
 				<NavbarBrand
 					as='li'
 					className='max-w-fit gap-3'>
