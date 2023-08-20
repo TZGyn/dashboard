@@ -10,6 +10,13 @@ import {
 	NavbarMenuItem,
 } from '@nextui-org/navbar'
 import { Kbd } from '@nextui-org/kbd'
+import {
+	Dropdown,
+	DropdownMenu,
+	DropdownItem,
+	DropdownTrigger,
+} from '@nextui-org/dropdown'
+import { Avatar, AvatarGroup, AvatarIcon } from '@nextui-org/avatar'
 import { Link } from '@nextui-org/link'
 import { Input } from '@nextui-org/input'
 
@@ -90,7 +97,7 @@ export const Navbar = () => {
 			</NavbarContent>
 
 			<NavbarContent
-				className='hidden basis-1/5 sm:flex sm:basis-full'
+				className='flex basis-full'
 				justify='end'>
 				<NavbarItem className='hidden gap-2 sm:flex'>
 					{pathname.startsWith('/dashboard') && (
@@ -105,20 +112,38 @@ export const Navbar = () => {
 						<GithubIcon className='text-default-500' />
 					</Link>
 					<ThemeSwitch />
+					<div className='ml-4 flex items-center gap-4'>
+						<Dropdown placement='bottom-end'>
+							<DropdownTrigger>
+								<Avatar
+									isBordered
+									as='button'
+									className='transition-transform'
+									icon={<AvatarIcon />}
+								/>
+							</DropdownTrigger>
+							<DropdownMenu
+								aria-label='Profile Actions'
+								variant='flat'>
+								<DropdownItem
+									key='profile'
+									className='h-14 gap-2'>
+									<p className='font-semibold'>
+										Signed in as
+									</p>
+									<p className='font-semibold text-primary'>
+										Guest
+									</p>
+								</DropdownItem>
+								<DropdownItem
+									key='logout'
+									color='danger'>
+									Log Out
+								</DropdownItem>
+							</DropdownMenu>
+						</Dropdown>
+					</div>
 				</NavbarItem>
-			</NavbarContent>
-
-			<NavbarContent
-				className='basis-1 pl-4 sm:hidden'
-				justify='end'>
-				<Link
-					isExternal
-					href={siteConfig.links.github}
-					aria-label='Github'>
-					<GithubIcon className='text-default-500' />
-				</Link>
-				<ThemeSwitch />
-				<NavbarMenuToggle className='' />
 			</NavbarContent>
 
 			<NavbarMenu>
