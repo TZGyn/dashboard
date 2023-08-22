@@ -13,5 +13,7 @@ export const getUser = async (token: RequestCookie | undefined) => {
 
 	if (!existing_session) return null
 
+	if (existing_session.expires < new Date()) return null
+
 	return existing_session.user
 }
