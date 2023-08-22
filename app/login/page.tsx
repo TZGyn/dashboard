@@ -33,6 +33,7 @@ export default function LoginPage() {
 		if (responseData.type === 'success') {
 			setEmail('')
 			setPassword('')
+			router.refresh()
 			router.push('/dashboard')
 			return
 		}
