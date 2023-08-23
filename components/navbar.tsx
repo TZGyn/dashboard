@@ -15,9 +15,8 @@ import {
 	DropdownItem,
 	DropdownTrigger,
 } from '@nextui-org/dropdown'
-import { Avatar, AvatarGroup, AvatarIcon } from '@nextui-org/avatar'
+import { Avatar, AvatarIcon } from '@nextui-org/avatar'
 import { Link } from '@nextui-org/link'
-import { Input } from '@nextui-org/input'
 
 import { link as linkStyles } from '@nextui-org/theme'
 
@@ -30,11 +29,23 @@ import { GithubIcon } from '@/components/icons'
 
 import { Icon } from '@iconify/react'
 import NewBookmarkForm from '@/components/newBookmarkForm'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { User } from '@/types'
 
-export const Navbar = () => {
-
+export const Navbar = ({ user }: { user: User | null }) => {
 	const pathname = usePathname()
+	const router = useRouter()
+
+	if (pathname.startsWith('/login') || pathname.startsWith('/signup')) {
+		return <></>
+	}
+
+	const logout = async () => {
+		const response = await fetch('/api/auth/logout', {
+			method: 'POST',
+		})
+		router.refresh()
+	}
 
 	return (
 		<NextUINavbar
@@ -110,12 +121,13 @@ export const Navbar = () => {
 										Signed in as
 									</p>
 									<p className='font-semibold text-primary'>
-										Guest
+										{user ? user.email : 'Guest'}
 									</p>
 								</DropdownItem>
 								<DropdownItem
 									key='logout'
-									color='danger'>
+									color='danger'
+									onPress={() => logout()}>
 									Log Out
 								</DropdownItem>
 							</DropdownMenu>

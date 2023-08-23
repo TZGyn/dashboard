@@ -41,3 +41,10 @@ export const bookmarkCategoryWithBookmarksSchema = z.object({
 export type BookmarkCategoryWithBookmarks = z.infer<
 	typeof bookmarkCategoryWithBookmarksSchema
 >
+
+export const userSchema = z.object({
+	email: z.string().email(),
+	name: z.string(),
+})
+
+export type User = z.infer<typeof userSchema>

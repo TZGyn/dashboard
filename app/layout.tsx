@@ -6,6 +6,9 @@ import { Providers } from './providers'
 import { Navbar } from '@/components/navbar'
 import { Link } from '@nextui-org/link'
 import clsx from 'clsx'
+import { userSchema } from '@/types'
+import { cookies } from 'next/headers'
+import { getUser } from '@/lib/auth'
 
 export const metadata: Metadata = {
 	title: {
@@ -24,11 +27,19 @@ export const metadata: Metadata = {
 	},
 }
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
+	const token = cookies().get('token')
+	const userData = await getUser(token)
+
+	let user = null
+	if (userData) {
+		user = userSchema.parse(userData)
+	}
+
 	return (
 		<html
 			lang='en'
@@ -42,7 +53,7 @@ export default function RootLayout({
 				<Providers
 					themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
 					<div className='relative flex h-screen flex-col'>
-						<Navbar />
+						<Navbar user={user} />
 						<main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'>
 							{children}
 						</main>
