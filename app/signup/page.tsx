@@ -13,74 +13,80 @@ import { Link } from '@nextui-org/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-export default function LoginPage() {
+export default function SignUpForm() {
 	const router = useRouter()
 	const onSubmit = async () => {
 		const body = {
+			username,
 			email,
 			password,
+			password_confirm: passwordConfirm,
 		}
-		const response = await fetch('/api/auth/login', {
+		const response = await fetch('/api/auth/signup', {
 			method: 'POST',
-			credentials: 'include',
-			headers: {
-				'Content-Type': 'application/json',
-			},
 			body: JSON.stringify(body),
 		})
 
 		const responseData = await response.json()
 
-		if (responseData.type === 'success') {
+		if (responseData.status === 200) {
+			setUsername('')
 			setEmail('')
 			setPassword('')
-			router.refresh()
-			router.push('/dashboard')
+			setPasswordConfirm('')
 			return
 		}
 
-		if (responseData.type === 'credential') {
-			setInvalid(true)
-			setError(responseData.message)
-			return
+		if (responseData.message) {
+			setEmailInvalid(true)
 		}
 	}
 
+	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [passwordConfirm, setPasswordConfirm] = useState('')
 
-	const [invalid, setInvalid] = useState(false)
-	const [error, setError] = useState('')
+	const [emailInvalid, setEmailInvalid] = useState(false)
+	const [passwordInvalid, setPasswordInvalid] = useState(false)
 
 	return (
 		<>
 			<Modal
 				isOpen={true}
-				hideCloseButton
 				placement='center'>
-				<ModalContent
-					onKeyUp={(e) => {
-						if (e.key === 'Enter') onSubmit()
-					}}>
-					{(onClose) => (
+				<ModalContent>
+					{() => (
 						<>
 							<ModalHeader className='flex flex-col gap-1'>
-								Login
+								Sign Up
 							</ModalHeader>
 							<ModalBody>
 								<Input
 									autoFocus
+									label='Username'
+									placeholder='Enter your username'
+									variant='bordered'
+									value={username}
+									onChange={(event) => {
+										setUsername(event.target.value)
+									}}
+								/>
+								<Input
 									label='Email'
 									placeholder='Enter your email'
 									variant='bordered'
 									value={email}
 									onChange={(event) => {
-										setInvalid(false)
+										setEmailInvalid(false)
 										setEmail(event.target.value)
 									}}
-									color={invalid ? 'danger' : 'default'}
+									color={emailInvalid ? 'danger' : 'default'}
+									errorMessage={
+										emailInvalid && 'Account already exist'
+									}
 									validationState={
-										invalid ? 'invalid' : 'valid'
+										emailInvalid ? 'invalid' : 'valid'
 									}
 								/>
 								<Input
@@ -90,22 +96,26 @@ export default function LoginPage() {
 									variant='bordered'
 									value={password}
 									onChange={(event) => {
-										setInvalid(false)
 										setPassword(event.target.value)
 									}}
-									color={invalid ? 'danger' : 'default'}
-									errorMessage={invalid && error}
-									validationState={
-										invalid ? 'invalid' : 'valid'
-									}
+								/>
+								<Input
+									label='Confirm Password'
+									placeholder='Confirm your password'
+									type='password'
+									variant='bordered'
+									value={passwordConfirm}
+									onChange={(event) => {
+										setPasswordConfirm(event.target.value)
+									}}
 								/>
 								<div className='flex justify-end px-1 py-2'>
 									<Link
 										color='primary'
-										href='/signup'
+										href='/login'
 										size='sm'
 										underline='always'>
-										Don't have an account? Create here
+										Already have an account? Login
 									</Link>
 								</div>
 							</ModalBody>
@@ -113,7 +123,7 @@ export default function LoginPage() {
 								<Button
 									color='primary'
 									onPress={onSubmit}>
-									Login
+									Sign up
 								</Button>
 							</ModalFooter>
 						</>
