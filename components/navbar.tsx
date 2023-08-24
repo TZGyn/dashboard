@@ -47,6 +47,10 @@ export const Navbar = ({ user }: { user: User | null }) => {
 		router.refresh()
 	}
 
+	const login = () => {
+		router.push('/login')
+	}
+
 	return (
 		<NextUINavbar
 			maxWidth='xl'
@@ -124,12 +128,22 @@ export const Navbar = ({ user }: { user: User | null }) => {
 										{user ? user.email : 'Guest'}
 									</p>
 								</DropdownItem>
-								<DropdownItem
-									key='logout'
-									color='danger'
-									onPress={() => logout()}>
-									Log Out
-								</DropdownItem>
+								{user ? (
+									<DropdownItem
+										key='logout'
+										color='danger'
+										className='text-danger'
+										onPress={() => logout()}>
+										Log Out
+									</DropdownItem>
+								) : (
+									<DropdownItem
+										key='login'
+										color='primary'
+										onPress={() => login()}>
+										Login
+									</DropdownItem>
+								)}
 							</DropdownMenu>
 						</Dropdown>
 					</div>
