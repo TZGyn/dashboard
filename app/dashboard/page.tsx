@@ -1,14 +1,21 @@
 import { bookmarkCategoryWithBookmarksSchema } from '@/types'
-import { bookmark } from '@/lib/schema'
 import { db } from '@/lib/db'
 import EditBookmarkForm from '@/components/editBookmarkForm'
 import BookmarkTabs from '@/components/tabs'
+import { cookies } from 'next/headers'
+import { getUser } from '@/lib/auth'
 
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 
 export default async function DashboardPage() {
+	const token = cookies().get('token')
+
+	const session_user = await getUser(token)
+
 	const data = await db.query.bookmarkCategory.findMany({
+		where: (bookmark, { eq }) =>
+			eq(bookmark.userId, session_user ? session_user.id : 0),
 		with: {
 			bookmark: true,
 		},
