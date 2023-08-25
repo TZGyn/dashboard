@@ -28,8 +28,13 @@ const bookmarkCategory = {
 	name: z.string().nonempty(),
 }
 
+export const newBookmarkCategorySchema = z.object({
+	...bookmarkCategory,
+})
+
 export const bookmarkCategorySchema = z.object({
 	id: z.number(),
+	...bookmarkCategory,
 })
 
 export const bookmarkCategoryWithBookmarksSchema = z.object({
