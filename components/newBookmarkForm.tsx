@@ -33,12 +33,13 @@ export default function NewBookmarkForm({
 	}
 
 	const submitBookmark = async () => {
+		if (value === 'all') return
 		const body = {
 			name,
 			link,
 			description,
 			url,
-			category_id: parseInt(value.currentKey),
+			category_id: parseInt(value.values().next().value),
 		}
 		await fetch('/api/bookmark', {
 			method: 'POST',
