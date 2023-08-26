@@ -5,7 +5,7 @@ export const user = pgTable('users', {
 	id: serial('id').primaryKey(),
 	name: text('name'),
 	email: text('email'),
-	hashedPassword: text('password').notNull(),
+	hashedPassword: text('password').notNull().default(''),
 	createdAt: timestamp('created_at'),
 	updatedAt: timestamp('updated_at'),
 })
@@ -38,8 +38,11 @@ export const bookmarkRelations = relations(bookmark, ({ one }) => ({
 
 export const bookmarkCategory = pgTable('bookmark_categories', {
 	id: serial('id').primaryKey(),
-	userId: integer('user_id').references(() => user.id),
-	name: text('name'),
+	userId: integer('user_id')
+		.references(() => user.id)
+		.notNull()
+		.default(0),
+	name: text('name').notNull().default('Other'),
 })
 
 export const bookmarkCategoryRelations = relations(
