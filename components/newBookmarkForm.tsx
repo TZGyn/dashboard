@@ -8,30 +8,37 @@ import {
 	ModalFooter,
 	useDisclosure,
 } from '@nextui-org/modal'
-import {
-	Dropdown,
-	DropdownTrigger,
-	DropdownMenu,
-	DropdownItem,
-} from '@nextui-org/dropdown'
+import { Select, SelectSection, SelectItem } from '@nextui-org/select'
+import { Selection } from '@nextui-org/react'
 import { Button } from '@nextui-org/button'
 import { Input } from '@nextui-org/input'
 import { Icon } from '@iconify/react'
-import { ChevronDownIcon } from './ChevronDownIcon'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Tab, Tabs } from '@nextui-org/tabs'
+import { BookmarkCategory } from '@/types'
 
-export default function NewBookmarkForm() {
+export default function NewBookmarkForm({
+	categories,
+}: {
+	categories: BookmarkCategory[]
+}) {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
 	const router = useRouter()
-	const onSubmit = async () => {
+	const onSubmit = () => {
+		if (selected === 'bookmark') submitBookmark()
+		else if (selected === 'bookmark_category') submitCategory()
+		else return
+	}
+
+	const submitBookmark = async () => {
 		const body = {
 			name,
 			link,
 			description,
 			url,
-			category_id: selectedKey === 'Other' ? 2 : 1,
+			category_id: parseInt(value.currentKey),
 		}
 		await fetch('/api/bookmark', {
 			method: 'POST',
@@ -41,12 +48,28 @@ export default function NewBookmarkForm() {
 		router.refresh()
 	}
 
+	const submitCategory = async () => {
+		const body = {
+			name: categoryName,
+		}
+		await fetch('/api/bookmark_category', {
+			method: 'POST',
+			body: JSON.stringify(body),
+		})
+		onOpenChange()
+		router.refresh()
+	}
+
+	const [selected, setSelected] = useState('bookmark')
+
 	const [name, setName] = useState('')
 	const [link, setLink] = useState('')
 	const [description, setDescription] = useState('')
 	const [url, setUrl] = useState('')
 
-	const [selectedKey, setSelectedKey] = useState('Other')
+	const [categoryName, setCategoryName] = useState('')
+
+	const [value, setValue] = useState<Selection>(new Set([]))
 
 	return (
 		<>
@@ -67,84 +90,95 @@ export default function NewBookmarkForm() {
 				onOpenChange={onOpenChange}
 				placement='center'
 				hideCloseButton>
-				<ModalContent
-					onKeyUp={(e) => {
-						if (e.key === 'Enter') onSubmit()
-					}}>
+				<ModalContent>
 					{(onClose) => (
 						<>
 							<ModalHeader className='flex gap-2'>
-								New Bookmark
+								New Bookmark/Category
 								<Icon
 									icon='mdi:bookmark-box'
 									fontSize={30}
 								/>
 							</ModalHeader>
 							<ModalBody className='gap-4'>
-								<Dropdown>
-									<DropdownTrigger className='flex justify-start'>
-										<Button
-											startContent={
-												<span className='text-default-400'>
-													Category:
-												</span>
-											}
-											endContent={
-												<ChevronDownIcon className='text-small' />
-											}
-											variant='flat'>
-											<div className='w-full text-start'>
-												{selectedKey}
-											</div>
-										</Button>
-									</DropdownTrigger>
-									<DropdownMenu
-										disallowEmptySelection
-										selectionMode='single'
-										selectedKeys={selectedKey}
-										disabledKeys={['disabled']}>
-										<DropdownItem
-											key='disabled'
-											className='capitalize'>
-											Select Category
-										</DropdownItem>
-										<DropdownItem
-											key='Coding'
-											onClick={() => {
-												setSelectedKey('Coding')
-											}}
-											className='capitalize'>
-											Coding
-										</DropdownItem>
-										<DropdownItem
-											key='Other'
-											onClick={() => {
-												setSelectedKey('Other')
-											}}
-											className='capitalize'>
-											Other
-										</DropdownItem>
-									</DropdownMenu>
-								</Dropdown>
-								<Input
-									autoFocus
-									label='Name'
-									placeholder='Enter Name'
-									variant='bordered'
-									value={name}
-									onChange={(event) => {
-										setName(event.target.value)
-									}}
-								/>
-								<Input
-									label='Url'
-									placeholder='Enter Url'
-									variant='bordered'
-									value={url}
-									onChange={(event) => {
-										setUrl(event.target.value)
-									}}
-								/>
+								<Tabs
+									selectedKey={selected}
+									onSelectionChange={(key) =>
+										setSelected(key.toString())
+									}
+									fullWidth
+									color='primary'>
+									<Tab
+										key='bookmark'
+										title={'Bookmark'}>
+										<form className='flex flex-col gap-4'>
+											<Select
+												label='Select category'
+												placeholder='Select a category'
+												selectedKeys={value}
+												onSelectionChange={setValue}>
+												{categories.length > 0 ? (
+													categories.map(
+														(category) => (
+															<SelectItem
+																key={
+																	category.id
+																}
+																value={
+																	category.id
+																}>
+																{category.name}
+															</SelectItem>
+														)
+													)
+												) : (
+													<SelectItem
+														key={'test'}
+														value={'test'}>
+														{'test'}
+													</SelectItem>
+												)}
+											</Select>
+											<Input
+												autoFocus
+												label='Name'
+												placeholder='Enter Name'
+												variant='bordered'
+												value={name}
+												onChange={(event) => {
+													setName(event.target.value)
+												}}
+											/>
+											<Input
+												label='Url'
+												placeholder='Enter Url'
+												variant='bordered'
+												value={url}
+												onChange={(event) => {
+													setUrl(event.target.value)
+												}}
+											/>
+										</form>
+									</Tab>
+									<Tab
+										key='bookmark_category'
+										title={'Bookmark Category'}>
+										<form className='flex flex-col gap-4'>
+											<Input
+												autoFocus
+												label='Category Name'
+												placeholder='Enter Category Name'
+												variant='bordered'
+												value={categoryName}
+												onChange={(event) => {
+													setCategoryName(
+														event.target.value
+													)
+												}}
+											/>
+										</form>
+									</Tab>
+								</Tabs>
 							</ModalBody>
 							<ModalFooter>
 								<Button

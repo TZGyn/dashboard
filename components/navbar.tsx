@@ -30,9 +30,15 @@ import { GithubIcon } from '@/components/icons'
 import { Icon } from '@iconify/react'
 import NewBookmarkForm from '@/components/newBookmarkForm'
 import { usePathname, useRouter } from 'next/navigation'
-import { User } from '@/types'
+import { BookmarkCategory, User } from '@/types'
 
-export const Navbar = ({ user }: { user: User | null }) => {
+export const Navbar = ({
+	user,
+	categories,
+}: {
+	user: User | null
+	categories: BookmarkCategory[]
+}) => {
 	const pathname = usePathname()
 	const router = useRouter()
 
@@ -95,7 +101,7 @@ export const Navbar = ({ user }: { user: User | null }) => {
 				<NavbarItem className='hidden gap-2 sm:flex'>
 					{pathname.startsWith('/dashboard') && (
 						<div className='mr-4'>
-							<NewBookmarkForm />
+							<NewBookmarkForm categories={categories} />
 						</div>
 					)}
 					<Link

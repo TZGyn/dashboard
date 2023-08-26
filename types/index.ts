@@ -34,8 +34,11 @@ export const newBookmarkCategorySchema = z.object({
 
 export const bookmarkCategorySchema = z.object({
 	id: z.number(),
+	userId: z.number(),
 	...bookmarkCategory,
 })
+
+export type BookmarkCategory = z.infer<typeof bookmarkCategorySchema>
 
 export const bookmarkCategoryWithBookmarksSchema = z.object({
 	id: z.number(),

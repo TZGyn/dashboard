@@ -9,6 +9,7 @@ import clsx from 'clsx'
 import { userSchema } from '@/types'
 import { cookies } from 'next/headers'
 import { getUser } from '@/lib/auth'
+import { getBookmarkCategories } from '@/lib/utils'
 
 export const metadata: Metadata = {
 	title: {
@@ -40,6 +41,10 @@ export default async function RootLayout({
 		user = userSchema.parse(userData)
 	}
 
+	const bookmarkCategories = await getBookmarkCategories(
+		userData ? userData.id : null
+	)
+
 	return (
 		<html
 			lang='en'
@@ -53,7 +58,10 @@ export default async function RootLayout({
 				<Providers
 					themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
 					<div className='relative flex h-screen flex-col'>
-						<Navbar user={user} />
+						<Navbar
+							user={user}
+							categories={bookmarkCategories}
+						/>
 						<main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'>
 							{children}
 						</main>

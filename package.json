@@ -22,6 +22,8 @@
 		"@nextui-org/link": "2.0.0",
 		"@nextui-org/modal": "^2.0.13",
 		"@nextui-org/navbar": "2.0.0",
+		"@nextui-org/react": "^2.1.5",
+		"@nextui-org/select": "^2.1.4",
 		"@nextui-org/snippet": "2.0.0",
 		"@nextui-org/switch": "2.0.0",
 		"@nextui-org/system": "2.0.0",
