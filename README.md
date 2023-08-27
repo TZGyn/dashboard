@@ -1,5 +1,13 @@
 # Bookmark Dashboard made with Next.js & NextUI
 
+Showcase: [website](https://next-dashboard.tzgyn.com) hosted on linode using docker
+
+## Requirements
+
+-   [Nodejs](https://nodejs.org/en)
+-   [Postgres](https://www.postgresql.org/)
+-   [Docker](https://www.docker.com/) to self host
+
 # Next.js & NextUI Template
 
 This is a template for creating applications using Next.js 13 (app directory) and NextUI (v2).
