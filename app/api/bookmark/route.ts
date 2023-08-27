@@ -6,12 +6,6 @@ import { eq } from 'drizzle-orm'
 import { cookies } from 'next/headers'
 import { getUser } from '@/lib/auth'
 
-export const GET = async () => {
-	const bookmarks = await db.select().from(bookmark)
-
-	return NextResponse.json(bookmarks)
-}
-
 export const POST = async (request: NextRequest) => {
 	const body = await request.json()
 	const token = cookies().get('token')
