@@ -114,12 +114,15 @@ export default function NewBookmarkForm({
 										title={'Bookmark'}>
 										<form className='flex flex-col gap-4'>
 											<Select
-												label='Select category'
+												label='Category'
 												placeholder='Select a category'
 												selectedKeys={value}
-												onSelectionChange={setValue}>
-												{categories.length > 0 ? (
-													categories.map(
+												onSelectionChange={setValue}
+												disabledKeys={['placeholder']}>
+												<SelectSection
+													showDivider
+													title='Categories'>
+													{[...categories].map(
 														(category) => (
 															<SelectItem
 																key={
@@ -131,14 +134,8 @@ export default function NewBookmarkForm({
 																{category.name}
 															</SelectItem>
 														)
-													)
-												) : (
-													<SelectItem
-														key={'test'}
-														value={'test'}>
-														{'test'}
-													</SelectItem>
-												)}
+													)}
+												</SelectSection>
 											</Select>
 											<Input
 												autoFocus
