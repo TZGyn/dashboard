@@ -62,7 +62,7 @@ export default async function RootLayout({
 							user={user}
 							categories={bookmarkCategories}
 						/>
-						<main className='container mx-auto max-w-7xl flex-grow px-6 pt-16'>
+						<main className='container mx-auto max-w-7xl flex-grow px-6'>
 							{children}
 						</main>
 						<footer className='flex w-full items-center justify-center py-3'>

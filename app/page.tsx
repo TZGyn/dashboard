@@ -14,7 +14,7 @@ export default function Home() {
 	}
 
 	return (
-		<section className='flex flex-col items-center justify-center gap-4 py-8 md:py-10'>
+		<section className='md:py-26 flex flex-col items-center justify-center gap-4 py-24'>
 			<div className='inline-block max-w-lg justify-center text-center'>
 				<h1 className={title({ color: 'blue' })}>Beautiful&nbsp;</h1>
 				<h1 className={title()}>Dashboard&nbsp;</h1>
@@ -26,7 +26,7 @@ export default function Home() {
 			</div>
 
 			<div className='my-4'>
-				<Card className='w-96 grow select-none'>
+				<Card className='max-w-96 grow select-none'>
 					<CardHeader className='flex gap-3'>
 						<Image
 							alt='nextui logo'
@@ -34,6 +34,7 @@ export default function Home() {
 							radius='sm'
 							src='https://avatars.githubusercontent.com/u/86160567?s=200&v=4'
 							width={40}
+							removeWrapper
 						/>
 						<Link
 							isExternal
