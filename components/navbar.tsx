@@ -69,7 +69,7 @@ export const Navbar = ({
 					as='li'
 					className='max-w-fit gap-3'>
 					<NextLink
-						className='flex items-center justify-start gap-1'
+						className='hidden items-center justify-start gap-1 sm:flex'
 						href='/'>
 						<Icon
 							icon={'mdi:bookmark-box'}
@@ -100,7 +100,7 @@ export const Navbar = ({
 				justify='end'>
 				<NavbarItem className='flex gap-2'>
 					{pathname.startsWith('/dashboard') && (
-						<div className='mr-4 hidden min-[400px]:flex'>
+						<div className='mr-4'>
 							<NewBookmarkForm categories={categories} />
 						</div>
 					)}
@@ -108,11 +108,11 @@ export const Navbar = ({
 						isExternal
 						href={siteConfig.links.github}
 						aria-label='Github'
-						className='hidden sm:flex'>
+						className='hidden min-[330px]:flex'>
 						<GithubIcon className='text-default-500' />
 					</Link>
-					<ThemeSwitch className='hidden sm:flex' />
-					<div className='ml-2 flex items-center gap-4 sm:ml-4'>
+					<ThemeSwitch className='hidden min-[330px]:flex' />
+					<div className='ml-2 flex items-center gap-4 min-[330px]:ml-4'>
 						<Dropdown placement='bottom-end'>
 							<DropdownTrigger>
 								<Avatar
