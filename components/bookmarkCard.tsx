@@ -44,6 +44,7 @@ export const BookmarkCard = ({ data }: { data: Bookmark }) => {
 						radius='sm'
 						src='https://avatars.githubusercontent.com/u/86160567?s=200&v=4'
 						width={40}
+						removeWrapper
 					/>
 					<Link
 						isExternal
