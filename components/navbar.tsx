@@ -78,7 +78,7 @@ export const Navbar = ({
 						<p className='font-bold text-inherit'>Dashboard</p>
 					</NextLink>
 				</NavbarBrand>
-				<ul className='ml-2 hidden justify-start gap-4 sm:flex'>
+				<ul className='ml-2 hidden justify-start gap-4 md:flex'>
 					{siteConfig.navItems.map((item) => (
 						<NavbarItem key={item.href}>
 							<NextLink
@@ -98,20 +98,21 @@ export const Navbar = ({
 			<NavbarContent
 				className='flex basis-full'
 				justify='end'>
-				<NavbarItem className='hidden gap-2 sm:flex'>
+				<NavbarItem className='flex gap-2'>
 					{pathname.startsWith('/dashboard') && (
-						<div className='mr-4'>
+						<div className='mr-4 hidden min-[400px]:flex'>
 							<NewBookmarkForm categories={categories} />
 						</div>
 					)}
 					<Link
 						isExternal
 						href={siteConfig.links.github}
-						aria-label='Github'>
+						aria-label='Github'
+						className='hidden sm:flex'>
 						<GithubIcon className='text-default-500' />
 					</Link>
-					<ThemeSwitch />
-					<div className='ml-4 flex items-center gap-4'>
+					<ThemeSwitch className='hidden sm:flex' />
+					<div className='ml-2 flex items-center gap-4 sm:ml-4'>
 						<Dropdown placement='bottom-end'>
 							<DropdownTrigger>
 								<Avatar
