@@ -40,21 +40,9 @@ export const Navbar = ({
 	categories: BookmarkCategory[]
 }) => {
 	const pathname = usePathname()
-	const router = useRouter()
 
 	if (pathname.startsWith('/login') || pathname.startsWith('/signup')) {
 		return <></>
-	}
-
-	const logout = async () => {
-		const response = await fetch('/api/auth/logout', {
-			method: 'POST',
-		})
-		router.refresh()
-	}
-
-	const login = () => {
-		router.push('/login')
 	}
 
 	return (
@@ -113,46 +101,7 @@ export const Navbar = ({
 					</Link>
 					<ThemeSwitch className='hidden min-[330px]:flex' />
 					<div className='ml-2 flex items-center gap-4 min-[330px]:ml-4'>
-						<Dropdown placement='bottom-end'>
-							<DropdownTrigger>
-								<Avatar
-									isBordered
-									as='button'
-									className='transition-transform'
-									icon={<AvatarIcon />}
-								/>
-							</DropdownTrigger>
-							<DropdownMenu
-								aria-label='Profile Actions'
-								variant='flat'>
-								<DropdownItem
-									key='profile'
-									className='h-14 gap-2'>
-									<p className='font-semibold'>
-										Signed in as
-									</p>
-									<p className='font-semibold text-primary'>
-										{user ? user.email : 'Guest'}
-									</p>
-								</DropdownItem>
-								{user ? (
-									<DropdownItem
-										key='logout'
-										color='danger'
-										className='text-danger'
-										onPress={() => logout()}>
-										Log Out
-									</DropdownItem>
-								) : (
-									<DropdownItem
-										key='login'
-										color='primary'
-										onPress={() => login()}>
-										Login
-									</DropdownItem>
-								)}
-							</DropdownMenu>
-						</Dropdown>
+						<UserAvatar user={user} />
 					</div>
 				</NavbarItem>
 			</NavbarContent>
@@ -179,5 +128,61 @@ export const Navbar = ({
 				</div>
 			</NavbarMenu>
 		</NextUINavbar>
+	)
+}
+
+function UserAvatar({ user }: { user: User | null }) {
+	const router = useRouter()
+
+	const logout = async () => {
+		const response = await fetch('/api/auth/logout', {
+			method: 'POST',
+		})
+		router.refresh()
+	}
+
+	const login = () => {
+		router.push('/login')
+	}
+
+	return (
+		<Dropdown placement='bottom-end'>
+			<DropdownTrigger>
+				<Avatar
+					isBordered
+					as='button'
+					className='transition-transform'
+					icon={<AvatarIcon />}
+				/>
+			</DropdownTrigger>
+			<DropdownMenu
+				aria-label='Profile Actions'
+				variant='flat'>
+				<DropdownItem
+					key='profile'
+					className='h-14 gap-2'>
+					<p className='font-semibold'>Signed in as</p>
+					<p className='font-semibold text-primary'>
+						{user ? user.email : 'Guest'}
+					</p>
+				</DropdownItem>
+				{user ? (
+					<DropdownItem
+						key='logout'
+						color='danger'
+						className='text-danger'
+						onPress={() => logout()}>
+						Log Out
+					</DropdownItem>
+				) : (
+					<DropdownItem
+						key='login'
+						color='primary'
+						onPress={() => login()}>
+						Login
+					</DropdownItem>
+				)}
+			</DropdownMenu>
+		</Dropdown>
 	)
 }
