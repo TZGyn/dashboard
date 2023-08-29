@@ -108,7 +108,7 @@ export const Navbar = ({
 						isExternal
 						href={siteConfig.links.github}
 						aria-label='Github'
-						className='hidden min-[330px]:flex'>
+						className='hidden sm:flex'>
 						<GithubIcon className='text-default-500' />
 					</Link>
 					<ThemeSwitch className='hidden min-[330px]:flex' />
