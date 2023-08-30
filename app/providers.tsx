@@ -42,6 +42,17 @@ export const BookmarkContext = React.createContext<BookmarkContextContent>({
 	setBookmark: () => {},
 })
 
+export type BookmarkCategoryContextContent = {
+	selectedCategory: string
+	setSelectedCategory: (category: string) => void
+}
+
+export const BookmarkCategoryContext =
+	React.createContext<BookmarkCategoryContextContent>({
+		selectedCategory: '',
+		setSelectedCategory: () => {},
+	})
+
 export function Providers({ children, themeProps }: ProvidersProps) {
 	// const [isEditBookmark, setIsEditBookmark] = React.useState<boolean>(false)
 	const {
@@ -57,24 +68,31 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 		url: '',
 		category_id: 2,
 	})
+	const [selectedCategory, setSelectedCategory] = React.useState('')
 	return (
-		<BookmarkContext.Provider
+		<BookmarkCategoryContext.Provider
 			value={{
-				bookmark,
-				setBookmark,
+				selectedCategory,
+				setSelectedCategory,
 			}}>
-			<EditBookmarkContext.Provider
+			<BookmarkContext.Provider
 				value={{
-					isEditBookmark,
-					onIsEditBookmark,
-					onIsEditBookmarkChange,
+					bookmark,
+					setBookmark,
 				}}>
-				<NextUIProvider>
-					<NextThemesProvider {...themeProps}>
-						{children}
-					</NextThemesProvider>
-				</NextUIProvider>
-			</EditBookmarkContext.Provider>
-		</BookmarkContext.Provider>
+				<EditBookmarkContext.Provider
+					value={{
+						isEditBookmark,
+						onIsEditBookmark,
+						onIsEditBookmarkChange,
+					}}>
+					<NextUIProvider>
+						<NextThemesProvider {...themeProps}>
+							{children}
+						</NextThemesProvider>
+					</NextUIProvider>
+				</EditBookmarkContext.Provider>
+			</BookmarkContext.Provider>
+		</BookmarkCategoryContext.Provider>
 	)
 }

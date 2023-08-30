@@ -31,6 +31,8 @@ import { Icon } from '@iconify/react'
 import NewBookmarkForm from '@/components/newBookmarkForm'
 import { usePathname, useRouter } from 'next/navigation'
 import { BookmarkCategory, User } from '@/types'
+import { useContext } from 'react'
+import { BookmarkCategoryContext } from '@/app/providers'
 
 export const Navbar = ({
 	user,
@@ -44,6 +46,8 @@ export const Navbar = ({
 	if (pathname.startsWith('/login') || pathname.startsWith('/signup')) {
 		return <></>
 	}
+
+	const { setSelectedCategory } = useContext(BookmarkCategoryContext)
 
 	return (
 		<NextUINavbar
@@ -80,6 +84,30 @@ export const Navbar = ({
 							</NextLink>
 						</NavbarItem>
 					))}
+					<NavbarItem>
+						<Dropdown>
+							<DropdownTrigger>Category</DropdownTrigger>
+							<DropdownMenu>
+								{categories.length > 0 ? (
+									categories.map((category) => (
+										<DropdownItem
+											key={category.name}
+											onPress={() =>
+												setSelectedCategory(
+													category.id.toString()
+												)
+											}>
+											{category.name}
+										</DropdownItem>
+									))
+								) : (
+									<DropdownItem key='empty'>
+										Nothing Here
+									</DropdownItem>
+								)}
+							</DropdownMenu>
+						</Dropdown>
+					</NavbarItem>
 				</ul>
 			</NavbarContent>
 
