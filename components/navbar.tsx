@@ -42,12 +42,11 @@ export const Navbar = ({
 	categories: BookmarkCategory[]
 }) => {
 	const pathname = usePathname()
+	const { setSelectedCategory } = useContext(BookmarkCategoryContext)
 
 	if (pathname.startsWith('/login') || pathname.startsWith('/signup')) {
 		return <></>
 	}
-
-	const { setSelectedCategory } = useContext(BookmarkCategoryContext)
 
 	return (
 		<NextUINavbar
