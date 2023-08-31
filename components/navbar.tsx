@@ -31,7 +31,7 @@ import { Icon } from '@iconify/react'
 import NewBookmarkForm from '@/components/newBookmarkForm'
 import { usePathname, useRouter } from 'next/navigation'
 import { BookmarkCategory, User } from '@/types'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { BookmarkCategoryContext } from '@/app/providers'
 
 export const Navbar = ({
@@ -43,6 +43,7 @@ export const Navbar = ({
 }) => {
 	const pathname = usePathname()
 	const { setSelectedCategory } = useContext(BookmarkCategoryContext)
+	const [menuOpen, setMenuOpen] = useState(false)
 
 	if (pathname.startsWith('/login') || pathname.startsWith('/signup')) {
 		return <></>
@@ -51,7 +52,9 @@ export const Navbar = ({
 	return (
 		<NextUINavbar
 			maxWidth='xl'
-			position='sticky'>
+			position='sticky'
+			isMenuOpen={menuOpen}
+			onMenuOpenChange={(isOpen) => setMenuOpen(isOpen ?? menuOpen)}>
 			<NavbarContent
 				className='basis-1/5 sm:basis-full'
 				justify='start'>
@@ -152,6 +155,18 @@ export const Navbar = ({
 							</Link>
 						</NavbarMenuItem>
 					))}
+					{pathname.startsWith('/dashboard') &&
+						categories.length > 0 &&
+						categories.map((category) => (
+							<NavbarMenuItem
+								key={category.name}
+								onClick={() => {
+									setMenuOpen(false)
+									setSelectedCategory(category.id.toString())
+								}}>
+								{category.name}
+							</NavbarMenuItem>
+						))}
 				</div>
 			</NavbarMenu>
 		</NextUINavbar>
