@@ -17,6 +17,7 @@ import {
 } from '@nextui-org/dropdown'
 import { Avatar, AvatarIcon } from '@nextui-org/avatar'
 import { Link } from '@nextui-org/link'
+import { Button } from '@nextui-org/react'
 
 import { link as linkStyles } from '@nextui-org/theme'
 
@@ -25,7 +26,7 @@ import NextLink from 'next/link'
 import clsx from 'clsx'
 
 import { ThemeSwitch } from '@/components/theme-switch'
-import { GithubIcon } from '@/components/icons'
+import { ChevronDown, GithubIcon } from '@/components/icons'
 
 import { Icon } from '@iconify/react'
 import NewBookmarkForm from '@/components/newBookmarkForm'
@@ -72,23 +73,40 @@ export const Navbar = ({
 						<p className='font-bold text-inherit'>Dashboard</p>
 					</NextLink>
 				</NavbarBrand>
-				<ul className='ml-2 hidden justify-start gap-4 md:flex'>
-					{siteConfig.navItems.map((item) => (
-						<NavbarItem key={item.href}>
-							<NextLink
-								className={clsx(
-									linkStyles({ color: 'foreground' }),
-									'data-[active=true]:font-medium data-[active=true]:text-primary'
-								)}
-								color='foreground'
-								href={item.href}>
-								{item.label}
-							</NextLink>
-						</NavbarItem>
-					))}
-					<NavbarItem>
+				{siteConfig.navItems.map((item) => (
+					<NavbarItem
+						key={item.href}
+						className='hidden sm:flex'>
+						<NextLink
+							className={clsx(
+								linkStyles({ color: 'foreground' }),
+								'data-[active=true]:font-medium data-[active=true]:text-primary'
+							)}
+							color='foreground'
+							href={item.href}>
+							{item.label}
+						</NextLink>
+					</NavbarItem>
+				))}
+				{pathname.startsWith('/dashboard') && (
+					<NavbarItem className='hidden sm:flex'>
 						<Dropdown>
-							<DropdownTrigger>Category</DropdownTrigger>
+							<DropdownTrigger>
+								<Button
+									disableRipple
+									className='bg-transparent p-0 data-[hover=true]:bg-transparent'
+									endContent={
+										<ChevronDown
+											fill='currentColor'
+											size={16}
+										/>
+									}
+									radius='sm'
+									size='lg'
+									variant='light'>
+									Category
+								</Button>
+							</DropdownTrigger>
 							<DropdownMenu>
 								{categories.length > 0 ? (
 									categories.map((category) => (
@@ -110,7 +128,7 @@ export const Navbar = ({
 							</DropdownMenu>
 						</Dropdown>
 					</NavbarItem>
-				</ul>
+				)}
 			</NavbarContent>
 
 			<NavbarContent
@@ -177,7 +195,7 @@ function UserAvatar({ user }: { user: User | null }) {
 	const router = useRouter()
 
 	const logout = async () => {
-		const response = await fetch('/api/auth/logout', {
+		await fetch('/api/auth/logout', {
 			method: 'POST',
 		})
 		router.refresh()
