@@ -1,6 +1,14 @@
 'use client'
 
 import {
+	Avatar,
+	AvatarIcon,
+	Button,
+	Dropdown,
+	DropdownMenu,
+	DropdownItem,
+	DropdownTrigger,
+	Link,
 	Navbar as NextUINavbar,
 	NavbarContent,
 	NavbarMenu,
@@ -8,16 +16,7 @@ import {
 	NavbarBrand,
 	NavbarItem,
 	NavbarMenuItem,
-} from '@nextui-org/navbar'
-import {
-	Dropdown,
-	DropdownMenu,
-	DropdownItem,
-	DropdownTrigger,
-} from '@nextui-org/dropdown'
-import { Avatar, AvatarIcon } from '@nextui-org/avatar'
-import { Link } from '@nextui-org/link'
-import { Button } from '@nextui-org/react'
+} from '@nextui-org/react'
 
 import { link as linkStyles } from '@nextui-org/theme'
 
@@ -70,24 +69,30 @@ export const Navbar = ({
 							icon={'mdi:bookmark-box'}
 							fontSize={32}
 						/>
-						<p className='font-bold text-inherit'>Dashboard</p>
 					</NextLink>
 				</NavbarBrand>
-				{siteConfig.navItems.map((item) => (
-					<NavbarItem
-						key={item.href}
-						className='hidden sm:flex'>
-						<NextLink
-							className={clsx(
-								linkStyles({ color: 'foreground' }),
-								'data-[active=true]:font-medium data-[active=true]:text-primary'
-							)}
-							color='foreground'
-							href={item.href}>
-							{item.label}
-						</NextLink>
-					</NavbarItem>
-				))}
+				{siteConfig.navItems.map((item) => {
+					if (
+						pathname.startsWith('/dashboard') &&
+						item.label === 'Dashboard'
+					)
+						return
+					return (
+						<NavbarItem
+							key={item.href}
+							className='hidden sm:flex'>
+							<NextLink
+								className={clsx(
+									linkStyles({ color: 'foreground' }),
+									'data-[active=true]:font-medium data-[active=true]:text-primary'
+								)}
+								color='foreground'
+								href={item.href}>
+								{item.label}
+							</NextLink>
+						</NavbarItem>
+					)
+				})}
 				{pathname.startsWith('/dashboard') && (
 					<NavbarItem className='hidden sm:flex'>
 						<Dropdown>
@@ -156,23 +161,23 @@ export const Navbar = ({
 
 			<NavbarMenu>
 				<div className='mx-4 mt-2 flex flex-col gap-2'>
-					{siteConfig.navMenuItems.map((item, index) => (
-						<NavbarMenuItem key={`${item}-${index}`}>
-							<Link
-								color={
-									index === 2
-										? 'primary'
-										: index ===
-										  siteConfig.navMenuItems.length - 1
-										? 'danger'
-										: 'foreground'
-								}
-								href={item.href}
-								size='lg'>
-								{item.label}
-							</Link>
-						</NavbarMenuItem>
-					))}
+					{siteConfig.navMenuItems.map((item, index) => {
+						if (
+							pathname.startsWith('/dashboard') &&
+							item.label === 'Dashboard'
+						)
+							return
+						return (
+							<NavbarMenuItem key={`${item}-${index}`}>
+								<Link
+									color={'foreground'}
+									href={item.href}
+									size='lg'>
+									{item.label}
+								</Link>
+							</NavbarMenuItem>
+						)
+					})}
 					{pathname.startsWith('/dashboard') &&
 						categories.length > 0 &&
 						categories.map((category) => (
