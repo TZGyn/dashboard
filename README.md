@@ -8,6 +8,16 @@ Showcase: [website](https://next-dashboard.tzgyn.com) hosted on linode using doc
 -   [Postgres](https://www.postgresql.org/)
 -   [Docker](https://www.docker.com/) to self host
 
+## Environments
+
+Copy .env.example to .env.local before building
+
+```bash
+DATABASE_URL=postgres://{postgres}:{password}@127.0.0.1:5432/next-dashboard
+ENVIRONMENT=prod
+
+```
+
 # Next.js & NextUI Template
 
 This is a template for creating applications using Next.js 13 (app directory) and NextUI (v2).
