@@ -56,14 +56,14 @@ export default function TableComponent({
 							<TableCell>{item.name}</TableCell>
 							<TableCell>
 								<div className='relative flex items-center gap-2'>
-									<Tooltip content='Edit user'>
+									<Tooltip content='Edit Category'>
 										<span className='cursor-pointer text-lg text-default-400 active:opacity-50'>
 											<EditIcon />
 										</span>
 									</Tooltip>
 									<Tooltip
 										color='danger'
-										content='Delete user'>
+										content='Delete Category'>
 										<span
 											className='cursor-pointer text-lg text-danger active:opacity-50'
 											onClick={() =>
