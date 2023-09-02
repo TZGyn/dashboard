@@ -2,7 +2,7 @@ import { bookmarkCategorySchema, newBookmarkCategorySchema } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 import { bookmarkCategory } from '@/lib/schema'
 import { db } from '@/lib/db'
-import { eq } from 'drizzle-orm'
+import { eq, and } from 'drizzle-orm'
 import { cookies } from 'next/headers'
 import { getUser } from '@/lib/auth'
 
@@ -45,10 +45,20 @@ export const PATCH = async (request: NextRequest) => {
 
 export const DELETE = async (request: NextRequest) => {
 	const body = await request.json()
+	const token = cookies().get('token')
+
+	const session_user = await getUser(token)
 
 	const bookmarkId = body.bookmarkCategoryId
 
-	await db.delete(bookmarkCategory).where(eq(bookmarkCategory.id, bookmarkId))
+	await db
+		.delete(bookmarkCategory)
+		.where(
+			and(
+				eq(bookmarkCategory.id, bookmarkId),
+				eq(bookmarkCategory.userId, session_user ? session_user.id : 0)
+			)
+		)
 
-	return NextResponse.json({ message: 'Bookmark Deleted' })
+	return NextResponse.json({ message: 'Bookmark Category Deleted' })
 }
