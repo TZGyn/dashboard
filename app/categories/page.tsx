@@ -1,6 +1,4 @@
-import {
-	bookmarkCategorySchema,
-} from '@/types'
+import { bookmarkCategoryWithBookmarksSchema } from '@/types'
 import { db } from '@/lib/db'
 import { cookies } from 'next/headers'
 import { getUser } from '@/lib/auth'
@@ -17,9 +15,14 @@ export default async function CategoriesPage() {
 	const data = await db.query.bookmarkCategory.findMany({
 		where: (bookmarkCategory, { eq }) =>
 			eq(bookmarkCategory.userId, session_user ? session_user.id : 0),
+		with: {
+			bookmark: true,
+		},
 	})
 
-	const bookmarkCategories = bookmarkCategorySchema.array().parse(data)
+	const bookmarkCategories = bookmarkCategoryWithBookmarksSchema
+		.array()
+		.parse(data)
 
 	return (
 		<div className='flex w-full max-w-4xl flex-row flex-wrap justify-start gap-6'>

@@ -10,19 +10,20 @@ import {
 	Tooltip,
 } from '@nextui-org/react'
 import { DeleteIcon, EditIcon } from '@/components/icons'
-import { BookmarkCategory } from '@/types'
+import { BookmarkCategoryWithBookmarks } from '@/types'
 
 import { useRouter } from 'next/navigation'
 
 const columns = [
 	{ name: 'NAME', uid: 'name' },
+	{ name: 'BOOKMARK COUNT', uid: 'bookmarkcount' },
 	{ name: 'ACTIONS', uid: 'actions' },
 ]
 
 export default function TableComponent({
 	bookmarkCategories,
 }: {
-	bookmarkCategories: BookmarkCategory[]
+	bookmarkCategories: BookmarkCategoryWithBookmarks[]
 }) {
 	const router = useRouter()
 
@@ -54,6 +55,7 @@ export default function TableComponent({
 					{(item) => (
 						<TableRow key={item.id}>
 							<TableCell>{item.name}</TableCell>
+							<TableCell>{item.bookmark.length}</TableCell>
 							<TableCell>
 								<div className='relative flex items-center gap-2'>
 									<Tooltip content='Edit Category'>
