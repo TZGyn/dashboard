@@ -32,7 +32,7 @@ export const siteConfig = {
 		},
 	],
 	links: {
-		github: 'https://github.com/TZGyn/',
+		github: 'https://github.com/TZGyn/dashboard',
 		twitter: 'https://twitter.com/getnextui',
 		docs: 'https://nextui-docs-v2.vercel.app',
 		discord: 'https://discord.gg/9b6yyZKmH4',
