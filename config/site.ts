@@ -5,10 +5,6 @@ export const siteConfig = {
 	description: 'Dashboard to manage your bookmarks',
 	navItems: [
 		{
-			label: 'Home',
-			href: '/',
-		},
-		{
 			label: 'Dashboard',
 			href: '/dashboard',
 		},

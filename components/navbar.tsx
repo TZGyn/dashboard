@@ -83,7 +83,12 @@ export const Navbar = ({
 							className='hidden sm:flex'>
 							<NextLink
 								className={clsx(
-									linkStyles({ color: 'foreground' }),
+									linkStyles({
+										color:
+											item.href === pathname
+												? 'primary'
+												: 'foreground',
+									}),
 									'data-[active=true]:font-medium data-[active=true]:text-primary'
 								)}
 								color='foreground'
@@ -170,7 +175,11 @@ export const Navbar = ({
 						return (
 							<NavbarMenuItem key={`${item}-${index}`}>
 								<Link
-									color={'foreground'}
+									color={
+										item.href === pathname
+											? 'primary'
+											: 'foreground'
+									}
 									href={item.href}
 									size='lg'>
 									{item.label}
