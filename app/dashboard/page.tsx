@@ -19,6 +19,7 @@ export default async function DashboardPage() {
 		with: {
 			bookmark: true,
 		},
+		orderBy: (bookmark, { asc }) => [asc(bookmark.position)],
 	})
 
 	const bookmarkCategoryWithBookmarks = bookmarkCategoryWithBookmarksSchema
