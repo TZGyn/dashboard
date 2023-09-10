@@ -1,0 +1,1 @@
+ALTER TABLE "bookmark_categories" ADD COLUMN "position" integer;

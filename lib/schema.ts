@@ -38,6 +38,7 @@ export const bookmarkRelations = relations(bookmark, ({ one }) => ({
 
 export const bookmarkCategory = pgTable('bookmark_categories', {
 	id: serial('id').primaryKey(),
+	position: integer('position'),
 	userId: integer('user_id')
 		.references(() => user.id)
 		.notNull()
