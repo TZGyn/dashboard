@@ -26,6 +26,7 @@ export type Bookmark = z.infer<typeof bookmarkSchema>
 
 const bookmarkCategory = {
 	name: z.string().nonempty(),
+	position: z.number(),
 }
 
 export const newBookmarkCategorySchema = z.object({
@@ -42,6 +43,7 @@ export type BookmarkCategory = z.infer<typeof bookmarkCategorySchema>
 
 export const bookmarkCategoryWithBookmarksSchema = z.object({
 	id: z.number(),
+	userId: z.number(),
 	...bookmarkCategory,
 	bookmark: bookmarkSchema.array(),
 })
