@@ -2,6 +2,25 @@
 
 Showcase: [website](https://next-dashboard.tzgyn.com) hosted on linode using docker
 
+## Preview
+
+<details>
+  <summary>Show</summary>
+
+### Homepage
+
+![homepage](./doc/assets/homepage.png)
+
+### Bookmarks
+
+![homepage](./doc/assets/bookmarks.png)
+
+### Bookmark Categories
+
+![homepage](./doc/assets/category.png)
+
+</details>
+
 ## Requirements
 
 -   [Nodejs](https://nodejs.org/en)
