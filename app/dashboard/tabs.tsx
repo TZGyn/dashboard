@@ -2,9 +2,10 @@
 
 import { BookmarkCategoryWithBookmarks } from '@/types'
 import { Tabs, Tab } from '@nextui-org/tabs'
-import { BookmarkCard } from './bookmarkCard'
-import { useContext, useState } from 'react'
+import { BookmarkCard } from '@/components/bookmarkCard'
+import { useContext } from 'react'
 import { BookmarkCategoryContext } from '@/app/providers'
+import EditBookmarkForm from './editBookmarkForm'
 
 export default function BookmarkTabs({
 	data,
@@ -37,6 +38,7 @@ export default function BookmarkTabs({
 					</Tab>
 				))}
 			</Tabs>
+			<EditBookmarkForm />
 		</div>
 	)
 }

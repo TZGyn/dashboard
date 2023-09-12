@@ -1,7 +1,6 @@
 import { bookmarkCategoryWithBookmarksSchema } from '@/types'
 import { db } from '@/lib/db'
-import EditBookmarkForm from '@/components/editBookmarkForm'
-import BookmarkTabs from '@/components/tabs'
+import BookmarkTabs from './tabs'
 import { cookies } from 'next/headers'
 import { getUser } from '@/lib/auth'
 
@@ -29,7 +28,6 @@ export default async function DashboardPage() {
 	return (
 		<div className='flex w-full max-w-4xl flex-row flex-wrap justify-start gap-6'>
 			<BookmarkTabs data={bookmarkCategoryWithBookmarks} />
-			<EditBookmarkForm />
 		</div>
 	)
 }

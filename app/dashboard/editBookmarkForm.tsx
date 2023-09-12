@@ -19,7 +19,7 @@ import { Icon } from '@iconify/react'
 import { useRouter } from 'next/navigation'
 import { useContext, useState } from 'react'
 import { BookmarkContext, EditBookmarkContext } from '@/app/providers'
-import { ChevronDownIcon } from './ChevronDownIcon'
+import { ChevronDownIcon } from '@/components/ChevronDownIcon'
 
 export default function EditBookmarkForm() {
 	const { isEditBookmark, onIsEditBookmarkChange } =
