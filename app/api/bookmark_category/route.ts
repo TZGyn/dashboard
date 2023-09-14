@@ -51,6 +51,23 @@ export const DELETE = async (request: NextRequest) => {
 
 	const bookmarkId = body.bookmarkCategoryId
 
+	const selectedBookmarkCategory = await db.query.bookmarkCategory.findFirst({
+		where: (bookmarkCategory, { eq }) =>
+			eq(bookmarkCategory.id, bookmarkId),
+		with: {
+			bookmark: true,
+		},
+	})
+
+	if (!selectedBookmarkCategory)
+		return NextResponse.json({ message: 'Invalid Category' })
+
+	if (selectedBookmarkCategory.bookmark.length) {
+		return NextResponse.json({
+			message: 'Category Must Have No Bookmarks To Be Deleted',
+		})
+	}
+
 	await db
 		.delete(bookmarkCategory)
 		.where(
