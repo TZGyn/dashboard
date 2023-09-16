@@ -52,6 +52,7 @@ export default function NewBookmarkForm({
 	const submitCategory = async () => {
 		const body = {
 			name: categoryName,
+			position: 1,
 		}
 		await fetch('/api/bookmark_category', {
 			method: 'POST',
