@@ -120,9 +120,7 @@ export default function NewBookmarkForm({
 												selectedKeys={value}
 												onSelectionChange={setValue}
 												disabledKeys={['placeholder']}>
-												<SelectSection
-													showDivider
-													title='Categories'>
+												<SelectSection title='Categories'>
 													{[...categories].map(
 														(category) => (
 															<SelectItem
